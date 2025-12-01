@@ -1,0 +1,14 @@
+server:
+  port: 4321
+
+# Socket.IO 配置
+socketio:
+  port: 4433
+
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
