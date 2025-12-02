@@ -211,5 +211,17 @@ public class WebController {
     }
 
 
+    //清除点赞
+    @PostMapping("/clearLikes")
+    public R<Void> clearLikes() {
+        Set<String> keys = redisTemplate.keys("file:*");
+        if (!keys.isEmpty()) {
+            for (String key : keys) {
+                redisTemplate.opsForHash().put(key, "likes", "0");
+            }
+        }
+        return R.ok();
+    }
+
 
 }
