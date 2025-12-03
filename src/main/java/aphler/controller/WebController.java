@@ -1,6 +1,7 @@
 package aphler.controller;
 
 import aphler.pojo.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -20,6 +21,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
+@Slf4j
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
@@ -87,6 +89,7 @@ public class WebController {
     // 获取指定类型的所有文件地址，按上传顺序
     @GetMapping("/list")
     public R<List<Map<String, Object>>> list(@RequestParam("type") Integer type) {
+        log.info("请求列表， 参数： {}", type);
         if (type == null || (type != TYPE_MOVE && type != TYPE_LIKE)) {
             return R.fail("类型不合法");
         }
@@ -107,6 +110,7 @@ public class WebController {
             }
         }
         // 已按 ZSet 的 score(order) 顺序
+        log.info("返回列表， 数量： {}", result.size());
         return R.ok(result);
     }
 
